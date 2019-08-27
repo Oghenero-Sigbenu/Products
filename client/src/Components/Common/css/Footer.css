@@ -1,0 +1,33 @@
+.footer {
+  width: 100%;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  background-color: black;
+  position: absolute;
+  padding: 7px;
+  align-items: center;
+  bottom: 0;
+}
+
+.socials {
+  color: white;
+  width: 100%;
+  align-content: center;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.icon,
+p {
+  padding: 10px;
+}
+
+.copy {
+  font-size: 13px;
+}
+
+.right {
+  text-align: right;
+  width: 100%;
+}

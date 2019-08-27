@@ -1,0 +1,33 @@
+.checkbox {
+  display: inline-block;
+}
+
+.label {
+  border-radius: 20px;
+  display: inline-block;
+  margin: 10px;
+  border: 1px solid #bdbdbd;
+  padding: 8px;
+  font-size: 16px;
+  color: black;
+}
+
+.label:hover {
+  background: black;
+  color: white;
+}
+
+.label-active {
+  border-radius: 20px;
+  display: inline-block;
+  margin: 10px;
+  border: 1px solid #bdbdbd;
+  padding: 8px;
+  font-size: 16px;
+  background: black;
+  color: white;
+}
+
+.checkbox input {
+  display: none;
+}

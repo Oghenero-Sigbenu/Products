@@ -1,0 +1,11 @@
+// AUTH
+export const START = "AUTH START";
+export const LOGOUT = "Logout sucessful";
+export const AUTH_SUCCESS = "AUTH SUCCESS";
+export const LOGINFAILED = "LOGIN FAILED";
+export const SIGNUPFAILED = "SIGNUP FAILED";
+export const LOGOUT_SUCCESS = "LOGOUT SUCCESS";
+export const TOGGLE_AUTH = "TOGGLE AUTH";
+export const LOAD_AUTH_USER_START = "LOAD_AUTH_USER_START";
+export const LOAD_AUTH_USER_SUCCESS = "LOAD_AUTH_USER_SUCCESS";
+export const LOAD_AUTH_USER_FAILED = "LOAD_AUTH_USER_FAILED";

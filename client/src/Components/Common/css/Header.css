@@ -1,0 +1,103 @@
+.header {
+  width: 100%;
+  display: flex;
+  padding: 10px;
+  z-index: 1500;
+  height: 60px;
+  top: 0;
+  justify-content: center;
+  position: fixed;
+}
+
+.bg {
+  background: #222222;
+  color: white;
+}
+
+.nobg {
+  background: none;
+  color: white;
+}
+
+.header ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.logo {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  flex: 0.4;
+  text-align: left;
+}
+
+.user {
+  position: absolute;
+  top: 0;
+  height: 60px;
+  right: 20px;
+  width: 150px;
+  display: flex;
+  align-items: center;
+}
+
+.user p {
+  width: 100%;
+  text-overflow: ellipsis;
+  text-align: right;
+}
+
+.user:hover > ul {
+  display: block;
+  position: absolute;
+  top: 60px;
+  right: 0;
+  background: white;
+  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
+  z-index: 500;
+}
+
+.user ul {
+  display: none;
+}
+
+.user ul li {
+  padding: 10px;
+  width: 200px;
+  text-align: right;
+}
+
+.logo ul {
+  position: absolute;
+  right: 50px;
+  padding: 0 0 0 0;
+}
+
+.logo ul li {
+  display: inline;
+  margin: 0 10px 0 10px;
+}
+
+.menu {
+  height: 60px;
+  align-items: center;
+  display: flex;
+  top: 0;
+  position: absolute;
+  right: 20px;
+}
+
+.menu li {
+  display: inline;
+  margin: 10px;
+}
+
+.menu li:hover {
+  background: #444;
+  padding: 20px 10px;
+}
+
+.svg-inline--fa {
+  margin: 0 10px;
+}
