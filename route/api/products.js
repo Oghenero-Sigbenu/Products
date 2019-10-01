@@ -5,6 +5,6 @@ const upload = require("../../middlewarre/upload")
 const route = express.Router();
 
 route.get("/get", productController.getAll);
-route.post("/create",  upload.single('imgUrl'), productController.create);
+route.post("/create",  productController.create);
 
 module.exports = route;

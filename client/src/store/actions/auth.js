@@ -1,5 +1,5 @@
 import axios from "../../utils/axios.base";
-import {START, AUTH_SUCCESS, AUTH_SUCCESS, LOGINFAILED, SIGNUPFAILED}  from "./types";
+import {START,LOGOUT, LOGIN, LOGINFAILED, SIGNUPFAILED}  from "./types";
 
 
 export const start = () => ({
@@ -10,7 +10,7 @@ export const start = () => ({
   });
 
  export const loginSuccess =(token, userId, user) => ({
-    type: AUTH_SUCCESS,
+    type: LOGIN,
     payload:{
         token,
         userId,
@@ -21,21 +21,22 @@ export const start = () => ({
  export const logInFailed = (msg) => {
     return {
       type: LOGINFAILED,
-      payload: msg.msg
+      payload: msg
     }
   };
   
-  export const signupFailed = (msg) => {
+export const signupFailed = (msg) => {
     return {
       type: SIGNUPFAILED,
-      payload: msg.msg
+      payload: msg
     }
-  };
+};
 
 export const login = (authdata) => {
+  console.log(authdata)
     return (dispatch) => {
         dispatch(start())
-            axios.post("/v1/auth/create", authdata)
+            axios.post("/auth/login", authdata)
                 .then(res => {
                     const {user, token} = res.data;
                         localStorage.setItem("token", token);
@@ -47,27 +48,29 @@ export const login = (authdata) => {
                          })
     }
 };
+
 export const register = (authData) => {
   console.log(authData)
-  return (dispatch) => {
-    dispatch(start())
-    axios.post("/v1/user/register", authData)
-      .then(res => {
-        // console.log(res.data)
-        const { user, token } = res.data;
-        localStorage.setItem("token", token);
-        localStorage.setItem("user", JSON.stringify(user));
-        dispatch(loginSuccess(user, token))
-      })
-      .catch(err => {
-        // dispatch(signupFailed(err.response.data))
-        console.log(err.response)
-      })
-  }
+    return (dispatch) => {
+        dispatch(start())
+        axios.post("/user/register", authData)
+            .then(res => {
+                const { user, token } = res.data;
+                console.log(res.data)
+                localStorage.setItem("token", token);
+                localStorage.setItem("user", JSON.stringify(user));
+                dispatch(loginSuccess(user, token))
+            })
+            .catch(err => {
+                dispatch(signupFailed(err.response))
+                console.log(err.response)
+            })
+        }
 };
 
 export const logout = () => {
   return {
     type: LOGOUT
   }
-}
+};
+

@@ -13,6 +13,8 @@
   "author": "Oghenero Sigbenu",
   "license": "ISC",
   "dependencies": {
+    "@fortawesome/free-solid-svg-icons": "^5.10.2",
+    "@fortawesome/react-fontawesome": "^0.1.4",
     "bcryptjs": "^2.4.3",
     "concurrently": "^4.1.2",
     "cors": "^2.8.5",

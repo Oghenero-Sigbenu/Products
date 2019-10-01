@@ -3,30 +3,16 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSignOutAlt, faThLarge } from '@fortawesome/free-solid-svg-icons'
 import { connect } from 'react-redux';
 import './css/Header.css';
-import logo from '../../assets/images/logo.png';
-import { logout } from '../../actions/Auth'
+import { logout } from '../../store/actions/auth';
+
 class Header extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      class: 'nobg'
+      class: ''
     }
   }
   
-  componentDidMount () {
-    const url = this.props.location;
-    const path = url.split('/');
-    if(path[1] === '') {
-      this.setState({
-        class: "nobg"
-      })
-    } else {
-      this.setState({
-        class: "bg"
-      })
-    }
-  }
-
   logout() {
     this.props.logout();
   }
@@ -55,7 +41,7 @@ class Header extends Component {
     return (
       <nav className={`header ${this.state.class}`}>
         <div className="logo">
-          <a href="/"><img src={logo} alt="Haven studio logo" width={120}/></a>
+          <a href="/"><h2>LWIGC</h2></a>
         </div>
         {show}
       </nav>
@@ -64,7 +50,7 @@ class Header extends Component {
 }
 
 const mapStateToProps = (state) => {
-  const { isLoggedIn } = state.Auth;
+  const { isLoggedIn } = state.auth;
   return {
     isLoggedIn
   }

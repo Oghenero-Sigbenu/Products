@@ -1,0 +1,38 @@
+exports.postProdSub = (req, res, next) => {
+	// const customerId = req.params.id;
+	const { signUpDate, customerId, productId } = req.body;
+	if (!signUpDate) {
+		res.status(400).json({ msg: 'Date required' });
+	} else {
+		Customer.findOne({
+			where: {
+				customerId
+			}
+		}).then(customer => {
+			if (!customer) {
+				res.status(404).json({ success: false, msg: "customer not Found" })
+			} else {
+				Savings_Products.findOne({
+					where: {
+						productId: productId
+					}
+				}).then(savingsProduct => {
+					if (!savingsProduct) {
+						res.status(404).json({ success: false, msg: "product not Found" })
+					} else {
+						ProductSubscription.create({
+							signUpDate,
+							customerId,
+							productId
+						})
+							.then((prodSub => {
+								res.json(prodSub)
+							}))
+							.catch((err) => res.status(400).send({
+								msg: "something went wrong",
+								Error: err
+							}));
+					}
+				})
+			}
+		})

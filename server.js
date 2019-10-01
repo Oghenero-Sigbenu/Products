@@ -13,6 +13,7 @@ const userRoutes = require("./route/api/user");
 const authRoutes = require("./route/api/auth");
 const productRoutes = require("./route/api/products");
 const orderRoutes = require("./route/api/order");
+const cartRoutes = require("./route/api/cart");
 
 const app = express();
 
@@ -30,6 +31,7 @@ app.use("/api/v1/user", userRoutes);
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/products", productRoutes);
 app.use("/api/v1/order", orderRoutes);
+app.use("/api/v1/cart", cartRoutes);
 
 const PORT = process.env.PORT || 5000;
 
