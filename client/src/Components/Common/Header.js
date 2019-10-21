@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSignOutAlt, faThLarge } from '@fortawesome/free-solid-svg-icons'
+import { faSignOutAlt, faThLarge, faShoppingCart } from '@fortawesome/free-solid-svg-icons'
 import { connect } from 'react-redux';
 import './css/Header.css';
 import { logout } from '../../store/actions/auth';
@@ -27,7 +27,7 @@ class Header extends Component {
 
     const userMenu = (
       <ul className="menu">
-        <a href="/dashboard"><li className="hvr-pulse-grow"><FontAwesomeIcon icon={faThLarge} />Dashboard</li></a>
+        <a href="/cart"><li className="hvr-pulse-grow"><FontAwesomeIcon icon={faShoppingCart} />Cart</li></a>
         <a href="/" onClick={() => this.logout()}><li className="hvr-pulse-grow"><FontAwesomeIcon icon={faSignOutAlt} />Logout</li></a>
       </ul>
     );
@@ -41,7 +41,7 @@ class Header extends Component {
     return (
       <nav className={`header ${this.state.class}`}>
         <div className="logo">
-          <a href="/"><h2>LWIGC</h2></a>
+          <a href="/"><h2>Watchy</h2></a>
         </div>
         {show}
       </nav>

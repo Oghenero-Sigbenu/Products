@@ -1,6 +1,6 @@
 .form-element {
   width: 90%;
-  max-width: 600px;
+  /* max-width: 700px; */
   text-align: center;
   margin: 10px auto 10px auto;
   position: relative;
@@ -8,14 +8,34 @@
 
 .form-element input {
   width: 100%;
-  border-radius: 20px;
-  border: 1px solid #bdbdbd;
+  border-radius: 5px;
+  border: none;
+  background: #ededed;
+  padding: 10px;
+  font-size: 16px;
+  color: #828282;
+  margin: 5px auto;
+  box-sizing: border-box;
+  /* border: 1px solid #bdbdbd;
   padding: 8px;
   font-size: 16px;
   color: black;
-  margin: 7px;
+  margin: 7px; */
+}
+.form-other {
+  display: flex;
+  flex-direction: column;
+}
+.form-other a {
+  color: #828282;
+  margin: 15px;
+  text-decoration: none;
 }
 
+.form-other a:hover {
+  color: black;
+  text-decoration: none;
+}
 .form-element label {
   font-size: 16px;
 }

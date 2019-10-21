@@ -1,4 +1,4 @@
-.button {
+/* .button {
   padding: 15px;
   margin: 10px;
   border-radius: 20px;
@@ -23,5 +23,39 @@
 
 .btn-wht:hover {
   background: white;
+  color: black;
+} */
+.button {
+  padding: 10px;
+  margin: 10px auto;
+  border-radius: 5px;
+  min-width: 150px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  background: red;
+  color: white;
+  font-size: 16px;
+  font-family: "Bold";
+}
+
+.btn-long {
+  width: 60%; 
+}
+
+.btn-disable {
+  background: #828282;
+  color: white;
+  cursor: not-allowed;
+}
+
+.btn-enable {
+  background: red;
+  color: white;
+  cursor: pointer;
+}
+
+.btn-cancel {
+  background: none;
   color: black;
 }

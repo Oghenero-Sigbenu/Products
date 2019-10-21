@@ -16,8 +16,9 @@ Cart.init({
         allowNull: false
     }
     },{sequelize});
+
     Cart.belongsTo(User);
     Cart.belongsTo(Products);
     Products.hasMany(Cart);
-
+    
     module.exports = Cart;

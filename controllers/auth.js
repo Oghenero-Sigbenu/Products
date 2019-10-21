@@ -5,8 +5,8 @@ const User = require("../model/user");
 //user login
 exports.login = (req, res, next) => {
     const { email, password } = req.body;
-    console.log( email, password )
-    //check for empty fields
+    console.log(email, password)
+    //check if fields are empty 
     if (!email || !password) {
         return res.status(400).json({ msg: "All fields are required" })
     }
@@ -15,35 +15,33 @@ exports.login = (req, res, next) => {
         User.findOne({
             where: { email }
         })
-        .then(user => {
-            console.log(user)
-            if (!user) {
-               return  res.status(400).json({ msg: err.message || "User does not exist" });
-            }
-            // console.log("password, user.password")
-                // else{
-                    bcrypt
-                        //checks is password matches user password
-                        .compare(password, user.password)
-                        .then(match => {
-                            //if it does not match
-                            if (!match) {
-                                return res.status(400).json({ msg: "Invalid Password" });
-                            }
-                            //login the user if it matches the password then assign a token
-                            jwt.sign({ userId: user.id },
-                                 process.env.AUTH_SECRET_KEY,
-                                  {expiresIn:"24h"},
-                                   (err, token) => {
-                                res.json({token, 
-                                        user })
+            .then(user => {
+                if (!user) {
+                    return res.status(400).json({ msg: err.message || "User does not exist" });
+                }
+                bcrypt
+                    //checks is password matches user password
+                    .compare(password, user.password)
+                    .then(match => {
+                        //if it does not match
+                        if (!match) {
+                            return res.status(400).json({ msg:"Invalid Password"});
+                        }
+                        //login the user if it matches the password then assign a token
+                        jwt.sign({ userId: user.id },
+                            process.env.AUTH_SECRET_KEY,
+                            { expiresIn: "24h" },
+                            (err, token) => {
+                                res.json({
+                                    token,
+                                    user
+                                })
                             })
-                  
-                        })
+                    })
 
-                        .catch(err => res.json({ msg: err.message || "failed to login" }))
+                    .catch(err => res.status(400).json({ msg: err.message || "failed to login" }))
             })
-            .catch(err => res.json({ msg: err.message || "failed to login" }))
+            .catch(err => res.status(400).json({ msg: err.message || "failed to login" }))
 
     }
 };

@@ -6,9 +6,9 @@ import { Redirect} from "react-router-dom";
 import Input from "./Common/Input";
 import Button from "./Common/Button";
 import Header from "./Common/Header";
-// import Alert from "./Common/Alert";
-// import Spinner from "./Common/Spinner";
-
+import Alert from "./Common/Alert";
+import Spinner from "./Common/Spinner";
+import {validateForm} from "./Common/Validation";
 
 import { reg, isValid } from "./Common/Validation";
 
@@ -24,6 +24,8 @@ class Signup extends Component {
           email: "",
           phone: "",
           password: "",
+           disable: true,
+          show: true,
           errors: {
             name: "",
             phone: "",
@@ -41,16 +43,16 @@ class Signup extends Component {
     
       click = (e) => {
           e.preventDefault();
-        //   if (validateForm(this.state)) {
+          if (validateForm(this.state)) {
               const { name, phone, email, password } = this.state;
               this.props.register({ name, email, phone, password })
               console.log(name, email, phone, password );
-        //     }
-        // else {
-        //   this.setState({
-        //     errorMsg: 'All fields are required'
-        //   })
-        // }
+            }
+        else {
+          this.setState({
+            errorMsg: 'All fields are required'
+          })
+        }
       };
     
       err = () => {
@@ -87,16 +89,18 @@ class Signup extends Component {
         })
       };
     render(){
-        const { errors } = this.state;
-        const {  isLoggedIn,  } = this.props;
+        const { errors, disable,errorMsg } = this.state;
+        const {  isLoggedIn,msg,isLoading } = this.props;
         // const messages = errorMsg || msg ? <Alert msg={msg ? msg : errorMsg} classStyle="red" close={this.err} /> : null;
     return(
         <>
         {isLoggedIn ? <Redirect to="/" /> : ""}
-        <div>
+        <div style={{ width: '100%' }}>
             <Header/>
-            <form onSubmit={this.click}>
+            {isLoading ? <Spinner /> :
+            <div className="container">
               <h1 className="head">Register</h1>
+              {/* {messages} */}
                     <Input type="text" label="Full Name:" name="name" handleChange={this.change} placeholder="Email"/>
                     <div className="error">{errors.name}</div>
                     <Input type="text" label="Phone Number:" name="phone" handleChange={this.change} placeholder="Phone"/>
@@ -107,8 +111,9 @@ class Signup extends Component {
                     <label>Password:</label>
                     <Input type="password" handleChange={this.change} name="password"  placeholder="Password"/>
                     <div className="error">{errors.password}</div>
-                <Button>Register</Button>
-            </form>
+                <Button onclick={this.click} disable={disable}>Register</Button>
+            </div>
+            }
         </div>
         </>
     )
@@ -116,12 +121,13 @@ class Signup extends Component {
 };
 
 const mapStateToProps = (state) => {
-    const {user, token, isLoggedIn, isLoading} = state.auth;
+    const {user, token, isLoggedIn, isLoading,msg} = state.auth;
         return{
             user,
             token,
             isLoading,
-            isLoggedIn
+            isLoggedIn,
+            msg
         }
 }
 

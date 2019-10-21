@@ -11,8 +11,7 @@ import { reg, validateForm } from "./Common/Validation";
 
 //action
 import {login} from "../store/actions/auth";
-
-class Login extends Component{
+ class Login extends Component{
     constructor(props) {
         super(props);
         this.state = {
@@ -88,8 +87,9 @@ handleSubmit(e) {
         return(
             <>
             {isLoggedIn ? <Redirect to="/"/> : 
-            <div>
+                <>
                 <Header/>
+              <div className="container">
                 <form onSubmit={this.handleSubmit}>
                     <div>
                         <label>Email:</label>
@@ -104,6 +104,7 @@ handleSubmit(e) {
                     <Button>Login</Button>
                 </form>
             </div>
+            </>
             }
             </>
         );

@@ -8,6 +8,7 @@ import Home from "./Components/Home";
 import Product from "./Components/Product";
 import ProductDetail from "./Components/ProductDetail";
 import Cart from "./Components/Cart";
+import Checkout from "./Components/checkout";
 
 import './App.css';
 
@@ -15,9 +16,10 @@ class App extends Component {
   render(){
     let routes = (
       <Switch>
+        <Route path="/checkout" component={Checkout}/>
         <Route path="/cart" component={Cart}/>
         <Route path="/product" component={Product}/>
-        <Route path="/detail" component={ProductDetail}/>
+        <Route path="/products/:id" exact component={ProductDetail}/>
         <Route path="/login" component={Login}/>
         <Route path="/register" component={Signup}/>
         <Route path="/" exact component={Home}/>
@@ -25,7 +27,6 @@ class App extends Component {
     )
   return (
     <div className="App">
-     <h2>Hello</h2>
      {routes}
     </div>
   );

@@ -24,7 +24,8 @@ export default (state = INITIAL, action) => {
         user: payload.user,
         token: payload.token,
         isLoggedIn: true,
-        isLoading: false
+        isLoading: false,
+        msg:  payload.msg
 
       }
     case LOGINFAILED:

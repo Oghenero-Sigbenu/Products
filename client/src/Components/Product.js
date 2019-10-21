@@ -14,12 +14,20 @@ class Product extends Component{
     selectProduct = (product) => {
         this.props.setSelectedProduct(product)
     };
+    navigate(path) {
+        this.setState({
+          show: false
+        });
+        setTimeout(() => {
+          this.props.history.push(path);
+        }, 500);
+      };
     render(){
         const {product} = this.props;
         console.log(product)
         return(
             <>
-                <ProductCards product={product} selectProduct={this.selectProduct}/>
+                <ProductCards product={product} navigate={this.navigate} selectProduct={this.selectProduct}/>
             </>
         );
     };

@@ -8,7 +8,7 @@ const User = require("../model/user");
 exports.register = (req, res, next) => {
     const {name, phone, email, password} = req.body;
         if(!name || !phone || !email || !password){
-            res.status(400).json("All fields are required")
+            res.status(400).json({msg: "All fields are required"})
         }
         //check if email exist
         User.findOne({
@@ -18,7 +18,7 @@ exports.register = (req, res, next) => {
         })
         .then(user => {
             if(user){
-                return res.status(400).json({ msg:  "User already exist"})
+                return res.status(400).json({ msg:"User already exist"})
             }else{
                 let hashedPassword;
                 try{
@@ -43,7 +43,7 @@ exports.register = (req, res, next) => {
             .catch(err => res.json({ msg: err.message || "Not created"}))
         }
     })
-    .catch(err => res.json({ msg: err.message || "Failed to create user"}))  
+    .catch(err => res.json({ msg: err.message || "Failed to registered user"}))  
 };
 
 exports.getUsers = (req, res, next) => {

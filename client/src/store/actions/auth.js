@@ -9,12 +9,13 @@ export const start = () => ({
     }
   });
 
- export const loginSuccess =(token, userId, user) => ({
+ export const loginSuccess =(token, userId, user,msg) => ({
     type: LOGIN,
     payload:{
         token,
         userId,
-        user
+        user,
+        msg
     }
  }); 
 
@@ -62,7 +63,7 @@ export const register = (authData) => {
                 dispatch(loginSuccess(user, token))
             })
             .catch(err => {
-                dispatch(signupFailed(err.response))
+                dispatch(signupFailed(err.response.msg))
                 console.log(err.response)
             })
         }

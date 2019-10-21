@@ -3,18 +3,26 @@
 
   //model
   const User = require("../model/user");
-  const Products = require("../model/products");
+  const Cart = require("../model/cart");
+  const Products = require("../model/Products");
 
   class Order extends Sequelize.Model{}
 
   Order.init({
-      totalPrice:({
+      quantity:({
+        type: Sequelize.INTEGER,
+         allowNull: true
+      }),
+      total:({
         type: Sequelize.INTEGER,
          allowNull: true
       })
-    // FOREIGN KEY (user_id) REFERENCES User(user_id) 
+  // FOREIGN KEY (user_id) REFERENCES User(user_id) 
   },{sequelize})
-  Order.belongsTo(User)
-  Order.belongsTo(Products)
 
-  module.exports = Order;
+// Associations for our models
+Order.belongsTo(User);
+Order.belongsTo(Cart);
+Order.belongsTo(Products);
+
+module.exports = Order;
