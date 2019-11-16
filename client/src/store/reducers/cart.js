@@ -1,4 +1,4 @@
-import {ADD_TO_CART, GET_ALL_CART_ITEMS, GET_USER_CART_ITEM, GET_CART_ITEM_BY_ID, REMOVE_ITEM_FROM_CART} from "../actions/types";
+import {ADD_TO_CART, GET_ALL_CART_ITEMS, GET_USER_CART_ITEM} from "../actions/types";
 
 
 const initial = {

@@ -1,4 +1,4 @@
-import {ADD_TO_CART, GET_ALL_CART_ITEMS, GET_USER_CART_ITEM, GET_CART_ITEM_BY_ID, REMOVE_ITEM_FROM_CART} from "./types";
+import {ADD_TO_CART, GET_ALL_CART_ITEMS, GET_USER_CART_ITEM, GET_CART_ITEM_BY_ID} from "./types";
 import axios from "../../utils/axios.base";
 
 //add to cart

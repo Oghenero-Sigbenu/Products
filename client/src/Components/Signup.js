@@ -6,7 +6,7 @@ import { Redirect} from "react-router-dom";
 import Input from "./Common/Input";
 import Button from "./Common/Button";
 import Header from "./Common/Header";
-import Alert from "./Common/Alert";
+// import Alert from "./Common/Alert";
 import Spinner from "./Common/Spinner";
 import {validateForm} from "./Common/Validation";
 
@@ -89,8 +89,8 @@ class Signup extends Component {
         })
       };
     render(){
-        const { errors, disable,errorMsg } = this.state;
-        const {  isLoggedIn,msg,isLoading } = this.props;
+        const { errors, disable } = this.state;
+        const {  isLoggedIn,isLoading } = this.props;
         // const messages = errorMsg || msg ? <Alert msg={msg ? msg : errorMsg} classStyle="red" close={this.err} /> : null;
     return(
         <>

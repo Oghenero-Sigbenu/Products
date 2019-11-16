@@ -32,9 +32,12 @@ class Cart extends Component {
     }, 500);
   };
 
-  render() {
+  total() {
     const {item} = this.props;
     console.log(item)
+  }
+  render() {
+    const {item} = this.props;
     return (
       <>
         <Header />
@@ -48,26 +51,26 @@ class Cart extends Component {
                 <th>Quantity</th>
                 <th>Sub-total</th>
               </tr>
-          {item && item.products.map(prod => {
+          {item && item.products.map((prod, index) => {
                 return (
-                  <tr key={prod.product.id} onClick={() => this.navigate(`/admin/group/${prod.product.id}`)}>
+                  <tr key={index} >
                     <td className="table-item">
                     <img src={imag} alt="product"></img>
                     {prod.product.name}
                     </td>
                     <td>{prod.product.price}</td>
-                    <td>{prod.product.quantity}h</td>
-                    <td>{prod.product.price}</td>
+                    <td>{prod.product.quantity}</td>
+                    <td onClick={() => this.total()} >{prod.product.price}</td>
                     {/* // <td>{moment(elem.billingHistory).format('D MMM\'YY')}</td> */}
-                    <td></td>
+                    {/* <td>{eval([prod.product.price].join("+"))}</td> */}
                   </tr>
                 );
               })}
             </tbody>
-            
-            <Button onclick={() => this.navigate('/home')}>Continue</Button>
-            <Button onclick={() => this.navigate('/checkout')}>CheckOut Now</Button>
+           
           </table>
+            <Button onclick={() => this.navigate('/')}>Continue Shopping</Button>
+            <Button onclick={() => this.navigate('/checkout')}>CheckOut Now</Button>
           </div> 
         </div> 
       </>

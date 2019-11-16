@@ -6,7 +6,7 @@
   height: 60px;
   top: 0;
   justify-content: center;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
+  /* box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15); */
   position: fixed;
 }
 

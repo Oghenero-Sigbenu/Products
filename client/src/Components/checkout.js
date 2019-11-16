@@ -63,8 +63,8 @@ class Checkout extends Component {
                         </div>
                         <div className="shipping-carts">
                             <div className="carts-header"><h3>Your Order</h3></div>
-                            {item && item.products.map(prod => (
-                            <div className="carts-card" key={prod.product.id}> 
+                            {item && item.products.map((prod, index )=> (
+                            <div className="carts-card" key={index}> 
                                 <div className="cart-image"></div>
                                 <div className="cart-text">
                                 <div>

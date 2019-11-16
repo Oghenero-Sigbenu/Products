@@ -1,12 +1,13 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 //components
 import Header from "./Common/Header";
-// import Banner from "../assets/file/banner1.jpg";
 import Products from "./ProductCards";
 import slide1 from "../assets/file/banner61.jpg";
+import slide2 from "../assets/file/banner11.jpg";
+import slide3 from "../assets/file/banner21.jpg";
 
 //action
 import { getProducts, setSelectedProduct } from "../store/actions/product";
@@ -16,9 +17,11 @@ class Home extends Component {
     constructor(props) {
         super(props);
         this.state = {
-         
+         view: 1
+
         }
     this.selectProduct = this.selectProduct.bind(this)
+   
       }
     componentDidMount() {
         this.props.getProducts()
@@ -31,27 +34,25 @@ class Home extends Component {
       case 1:
         return (
           <>
-           then, Add Payment Method... this is a one time action that help us in billing you based on your subscription.
+           <img src={slide1} alt="banner" />
           </>
         );
       case 2:
         return (
           <>
-            Create a group or Join Group
+            <img src={slide2} alt="banner" />
           </>
         );
       case 3:
         return (
           <>
-            Go into your group activity and get your netflix login details
+             <img src={slide3} alt="banner" />
         </>
         )
       default:
         return (
           <>
-            <h3>How it works</h3>
-            <p>Here is a brief process on ow to use this platform......</p>
-            <p>Click on register to become a user</p>
+             <img src={slide2} alt="banner" />
           </>
         )
     }
@@ -92,19 +93,20 @@ class Home extends Component {
         view:view+1
       })
     }
-  }
+  } 
 
   selectProduct = (pro) => {
         this.props.setSelectedProduct(pro)
     };
-
-    render() {
+ 
+  render() {
         const { product } = this.props;
+        const slides = this.renderView();
         return (
             <div className="home">
                 <Header />
                 <div className="banner">
-                    <img src={slide1} alt="banner" />
+                    {slides}
                 </div>
                 <div>
                     <h2>Recently Added Products</h2>

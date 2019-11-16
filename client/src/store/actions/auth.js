@@ -63,8 +63,8 @@ export const register = (authData) => {
                 dispatch(loginSuccess(user, token))
             })
             .catch(err => {
-                dispatch(signupFailed(err.response.msg))
-                console.log(err.response)
+                dispatch(signupFailed(err))
+                console.log(err)
             })
         }
 };

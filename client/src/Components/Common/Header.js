@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSignOutAlt, faThLarge, faShoppingCart } from '@fortawesome/free-solid-svg-icons'
+import { faSignOutAlt, faShoppingCart } from '@fortawesome/free-solid-svg-icons'
 import { connect } from 'react-redux';
 import './css/Header.css';
 import { logout } from '../../store/actions/auth';

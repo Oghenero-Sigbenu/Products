@@ -34,7 +34,7 @@ exports.register = (req, res, next) => {
                 .then(user => {
                     jwt.sign(
                         { id: user.id },process.env.AUTH_SECRET_KEY,{ expiresIn: "24h"}, (err,token) => {
-                            return res.json({
+                            return res.status(200).json({
                                 token,
                                 user
                         });
