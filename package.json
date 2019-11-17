@@ -7,6 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon server.js",
     "client": "npm start --prefix client",
+    "db:refresh": "npx sequelize db:drop && npx sequelize db:create",
     "dev": "concurrently \"nodemon server.js\" \"npm run client\"",
     "clientinstall": "npm install --prefix client"
   },
@@ -28,5 +29,8 @@
     "nodemailer-smtp-transport": "^2.7.4",
     "nodemon": "^1.19.1",
     "sequelize": "^5.15.0"
+  },
+  "devDependencies": {
+    "sequelize-cli": "^5.5.1"
   }
 }

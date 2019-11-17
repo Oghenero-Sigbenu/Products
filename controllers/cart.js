@@ -31,7 +31,7 @@ exports.create = (req, res, next) => {
                     });
             }
         })
-        .catch(err => console.log("error occured"))
+        .catch(err => console.log(err.message || "error occured"))
 };
 
 
