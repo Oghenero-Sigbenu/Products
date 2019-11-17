@@ -15,27 +15,22 @@ exports.create = (req, res, next) => {
                     error: err
                 })
             }else{
-                Cart.findOne({
-                    where:{
-                        ProductId
-                    }
-                })
-                .then(product => {
-                    if(product){
-                        product.update({
-                            quantity: quantity +1, total: quantity * total ,
-                        })
-                        .then(pro => {
-                            res.status(200).json({ msg: "Cart created successfully", data: createdCart })
-                        })
-                        .catch(err => {
-                            res.status(500).json({
-                                msg: "Something went wrong creating cart",
-                                error: err
-                            })
-                        })
-                    }
-                    else{
+                // s
+                    // if(product){
+                    //     product.update({
+                    //         quantity: quantity +1, total: quantity * total ,
+                    //     })
+                    //     .then(pro => {
+                    //         res.status(200).json({ msg: "Cart created successfully", data: createdCart })
+                    //     })
+                    //     .catch(err => {
+                    //         res.status(500).json({
+                    //             msg: "Something went wrong creating cart",
+                    //             error: err
+                    //         })
+                    //     })
+                    // }
+                    // else{
 
                         Cart.create({
                             quantity, total, UserId, ProductId
@@ -49,8 +44,8 @@ exports.create = (req, res, next) => {
                                     error: err
                                 })
                             })
-                    } 
-                })
+                    // } 
+                // })
             }
         })
         .catch(err => console.log("error occured"))
