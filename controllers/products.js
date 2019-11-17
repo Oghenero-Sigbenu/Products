@@ -4,9 +4,9 @@ const User = require("../model/user");
 exports.create = (req, res,  next) => {
     const {name, description, features, price,quantity} = req.body;
         let imgUrl;
-            if(req.path){
-                imgUrl = req.file.path;
-            }
+        //     if(req.path){
+        //         imgUrl = req.file.path;
+        //     }
             Products.create({
                 name, description, features, price, imgUrl, quantity
             })

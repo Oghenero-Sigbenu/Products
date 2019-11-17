@@ -17,15 +17,17 @@ exports.create = (req, res, next) => {
             } else {
                 let product = await Products.findByPk(ProductId);
                 if (!product) return res.status(404).json({message: "Product not found", status: "error" })
+                let cart = new Cart();
                 cart.createCart({
                         quantity, total, UserId, product
                     })
                     .then(createdCart => {
-                        res.status(200).json({ msg: "Cart created successfully", data: createdCart })
+                        res.status(200).json({ msg: "Cart created successfully", data: JSON.parse(createdCart.items) })
                     })
                     .catch(err => {
+                        console.log(err)
                         res.status(500).json({
-                            msg: "Something went wrong creating cart",
+                            msg: err.message || "Something went wrong creating cart",
                             error: err
                         })
                     });
@@ -44,7 +46,7 @@ exports.getAll = (req, res, next) => {
         .then(cart => {
             res.json(cart)
         })
-        .catch(err => res.json({ msg: "Error occured" || err.messages }))
+        .catch(err => res.json({ msg: err.message || "Error occured" }))
 };
 
 // exports.getUserCart = (req, res, next) => {

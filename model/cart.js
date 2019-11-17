@@ -5,40 +5,52 @@ const User = require("../model/user");
 const Products = require("../model/products");
 
 class Cart extends Sequelize.Model {
-    items = array();
+    items = [];
     async createCart(item) {
-        let cart = await this.findOne({ where: { UserId: item.UserId, ProductId: item.ProductId } });
+        let cart = await Cart.findOne({ where: { UserId: item.UserId } });
         if (!cart) {
-            cart = await this.create({
-                quantity: item.quantity, 
-                total: item.product.price, 
-                UserId: item.UserId, 
+            cart = await Cart.create({
+                quantity: item.quantity,
+                total: item.product.price,
+                UserId: item.UserId,
                 ProductId: item.ProductId,
-                items: [item]
+                items: JSON.stringify([item])
             })
         } else {
-             cart = await this.addToCart(item);
+            cart = await cart.addToCart(item);
         }
         return cart;
     }
 
     async addToCart(item) {
-        if (!this.checkIfProdExists(item.ProductId)) {
+        if (!this.checkIfProdExists(item.product.id)) {
             this.items.push(item);
         } else {
-            item[0].quantity += 1;
+            item = this.removeFromCart(item.product.id);
+            item.quantity += 1;
+            this.items.push(item);
         }
         this.total += item.product.price;
-        return await this.save();
+        return await this.update({"items": JSON.stringify(this.items)});
     }
 
     removeFromCart(productId) {
-
+        let item;
+        // console.log(this.items)
+        this.items.map((it, idx) => {
+            if (productId == it.product.id) {
+                item = it;
+                console.log("removing from araay");
+                this.items.splice(idx, 1);
+            }
+        })
+        // console.log(this.items)
+        return item;
     }
 
     checkIfProdExists(productId) {
         let item = this.items.filter((it, idx) => {
-            return item.ProductId == it.ProductId;
+            return productId == it.product.id;
         });
         return item.length > 0;
     }
@@ -50,7 +62,7 @@ Cart.init({
         allowNull: false
     },
     items: {
-        type: Sequelize.STRING
+        type: Sequelize.TEXT
     },
     total: {
         type: Sequelize.INTEGER,
@@ -61,7 +73,15 @@ Cart.init({
         cart.items = JSON.stringify(cart.items);
     },
     afterFind: (cart, options) => {
-        cart.items = JSON.parse(cart.items);
+        if (!cart) return;
+        if (Array.isArray(cart)) {
+            for(let c of cart) {
+                // console.log(c.get("items"))
+                c.set("items", JSON.parse(c.get("items")));
+            }
+            return
+        }
+        c.set("items", JSON.parse(c.get("items")));
     }
 }, sequelize });
 
