@@ -8,44 +8,27 @@ exports.create = (req, res, next) => {
     const { quantity, total, ProductId, UserId } = req.body;
     // const UserId = req.userId;
     User.findByPk(UserId)
-        .then(user => { 
-            if(!user){
+        .then(async (user) => {
+            if (!user) {
                 return res.status(500).json({
                     msg: "User does not exist",
                     error: err
                 })
-            }else{
-                // s
-                    // if(product){
-                    //     product.update({
-                    //         quantity: quantity +1, total: quantity * total ,
-                    //     })
-                    //     .then(pro => {
-                    //         res.status(200).json({ msg: "Cart created successfully", data: createdCart })
-                    //     })
-                    //     .catch(err => {
-                    //         res.status(500).json({
-                    //             msg: "Something went wrong creating cart",
-                    //             error: err
-                    //         })
-                    //     })
-                    // }
-                    // else{
-
-                        Cart.create({
-                            quantity, total, UserId, ProductId
+            } else {
+                let product = await Products.findByPk(ProductId);
+                if (!product) return res.status(404).json({message: "Product not found", status: "error" })
+                cart.createCart({
+                        quantity, total, UserId, product
+                    })
+                    .then(createdCart => {
+                        res.status(200).json({ msg: "Cart created successfully", data: createdCart })
+                    })
+                    .catch(err => {
+                        res.status(500).json({
+                            msg: "Something went wrong creating cart",
+                            error: err
                         })
-                            .then(createdCart => {
-                                res.status(200).json({ msg: "Cart created successfully", data: createdCart })
-                            })
-                            .catch(err => {
-                                 res.status(500).json({
-                                    msg: "Something went wrong creating cart",
-                                    error: err
-                                })
-                            })
-                    // } 
-                // })
+                    });
             }
         })
         .catch(err => console.log("error occured"))
@@ -103,8 +86,8 @@ exports.getUserCart = (req, res, next) => {
             { all: true }
         ]
     })
-        .then(carts => { 
-            
+        .then(carts => {
+
             res.status(200).json({ msg: "Cart fetch successfully", data: carts })
         })
         .catch(err => res.json({ msg: "Error occured", success: false, err }))
