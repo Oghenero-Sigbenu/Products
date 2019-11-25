@@ -5,7 +5,11 @@ const Sequelize = require("sequelize");
 const Op = Sequelize.Op;
 
 exports.create = (req, res, next) => {
-    const { quantity, total, ProductId, UserId } = req.body;
+    const {
+        quantity,
+        ProductId,
+        UserId
+    } = req.body;
     // const UserId = req.userId;
     User.findByPk(UserId)
         .then(async (user) => {
@@ -15,38 +19,46 @@ exports.create = (req, res, next) => {
                     error: err
                 })
             } else {
+
                 let product = await Products.findByPk(ProductId);
-                if (!product) return res.status(404).json({message: "Product not found", status: "error" })
+                if (!product) return res.status(404).json({
+                    message: "Product not found",
+                    status: "error"
+                })
                 let cart = new Cart();
                 cart.createCart({
-                        quantity, total, UserId, product
+                        quantity,
+                        UserId,
+                        product
                     })
                     .then(createdCart => {
-                        res.status(200).json({ msg: "Cart created successfully", data: JSON.parse(createdCart.items) })
+                        res.status(200).json({
+                            msg: "Cart created successfully",
+                            data: JSON.parse(createdCart.items)
+                        })
                     })
                     .catch(err => {
                         console.log(err)
-                        res.status(500).json({
-                            msg: err.message || "Something went wrong creating cart",
-                            error: err
-                        })
+                        next(new Error(err.message))
                     });
             }
         })
-        .catch(err => console.log(err.message || "error occured"))
+        .catch(err => next(new Error(err || "error fetching user or user does not exist")))
 };
 
 
 exports.getAll = (req, res, next) => {
     Cart.findAll({
-        include: [{
-            all: true
-        }]
-    })
+            include: [{
+                all: true
+            }]
+        })
         .then(cart => {
             res.json(cart)
         })
-        .catch(err => res.json({ msg: err.message || "Error occured" }))
+        .catch(err => res.json({
+            msg: err.message || "Error occured"
+        }))
 };
 
 // exports.getUserCart = (req, res, next) => {
@@ -81,33 +93,40 @@ exports.getUserCart = (req, res, next) => {
     const id = req.params.id;
 
     Cart.findAll({
-        where: {
-            userId: id
-        },
-        include: [
-            { all: true }
-        ]
-    })
+            where: {
+                userId: id
+            },
+            include: [{
+                all: true
+            }]
+        })
         .then(carts => {
 
-            res.status(200).json({ msg: "Cart fetch successfully", data: carts })
+            res.status(200).json({
+                msg: "Cart fetch successfully",
+                data: carts
+            })
         })
-        .catch(err => res.json({ msg: "Error occured", success: false, err }))
+        .catch(err => res.json({
+            msg: "Error occured",
+            success: false,
+            err
+        }))
 
 };
 
 exports.getOneCartItem = (req, res, next) => {
     const id = req.params.id;
-    Cart.findAll({
-        where: {
-            id
-        },
-        include: [{
-            all: true
-        }]
-    })
+    Cart.findOne({
+            where: {
+                id
+            },
+            include: [{
+                all: true
+            }]
+        })
         .then(cart => {
             res.json(cart)
         })
-        .catch(err => console.log("Error now"))
+        .catch(err => next(err || "Error now"))
 }
